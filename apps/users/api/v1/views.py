@@ -146,20 +146,24 @@ class AddresAPIView(APIView):
     def get(self, request):
         user = get_jwt_user(request)
         req_inf = RequestInfo()
-        client = Client.objects.get(user=user)
-        if user is not None:
-            try:
-                serializer = AddressSerializer(
-                    client.addresses.all(),
-                    many=True
-                )
-                return Response(serializer.data)
-            except ObjectDoesNotExist as e:
-                return req_inf.status_404(e.args[0])
-            except Exception as e:
-                return req_inf.status_400(e.args[0])
-        else:
-            return req_inf.status_401('token invalido')
+        try:
+            if user is not None:
+                try:
+                    serializer = AddressSerializer(
+                        client.addresses.all(),
+                        many=True
+                    )
+                    return Response(serializer.data)
+                except ObjectDoesNotExist as e:
+                    return req_inf.status_404(e.args[0])
+                except Exception as e:
+                    return req_inf.status_400(e.args[0])
+            else:
+                return req_inf.status_401('token invalido')
+        except ObjectDoesNotExist as e:
+            return req_inf.status_404(e.args[0])
+        except Exception as e:
+            return req_inf.status_400(e.args[0])
 
     @csrf_exempt
     @validate_jwt
