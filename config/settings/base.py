@@ -169,21 +169,23 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
     'social_core.pipeline.user.create_user',
+    'users.pipeline.save_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
     'social_core.pipeline.social_auth.associate_by_email',
-    'users.pipeline.save_user'
 )
 
 #Parametros para el login con Gmail
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '421418985074-n6oaenvkmpigt45ifl8aekse35v78qi1.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'fpkPRW9bUfslGcVFHUUqy4Se'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-
 SOCIAL_AUTH_FACEBOOK_KEY = '572256429797009'
 SOCIAL_AUTH_FACEBOOK_SECRET = '301a08fc14b05c5d18c48eed1e631838'
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email', 'user_birthday'

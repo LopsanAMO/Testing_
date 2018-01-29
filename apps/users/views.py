@@ -198,6 +198,10 @@ def user_delete(request, pk=None):
 
 @login_required
 def address_list(request, pk=None):
+    """Address List View
+    Description:
+        view to list user's address
+    """
     template_name = 'list_address.html'
     try:
         addresses = Client.objects.get(id=pk).addresses.all()
@@ -218,6 +222,19 @@ def address_list(request, pk=None):
 
 @login_required
 def address_new(request, pk=None):
+    """Create Address View
+    Description:
+        view to create address
+    Args:
+        region: (str):
+        town: (str):
+        neighborhood: (str):
+        zip_code: (str):
+        street: (str):
+        street_number: (str):
+        suite_number: (str):
+        country: (str): 
+    """
     if request.method == 'GET':
         template_name = 'new_address.html'
         form = AddressForm()
@@ -242,6 +259,19 @@ def address_new(request, pk=None):
 
 @login_required
 def address_edit(request, pk=None):
+    """Edit Address View
+    Description:
+        view to edit address
+    Args:
+        region: (str):
+        town: (str):
+        neighborhood: (str):
+        zip_code: (str):
+        street: (str):
+        street_number: (str):
+        suite_number: (str):
+        country: (str):
+    """
     template_name = 'edit_address.html'
     if request.method == 'GET':
         try:
@@ -281,6 +311,10 @@ def address_edit(request, pk=None):
 
 @login_required
 def address_delete(request, pk=None):
+    """Delete Address View
+    Description:
+        view to delete address
+    """
     address = None
     try:
         address = Address.objects.get(id=pk)
