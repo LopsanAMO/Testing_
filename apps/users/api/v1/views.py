@@ -48,6 +48,10 @@ def login(request):
 class UserAPI(APIView):
     @csrf_exempt
     def get(self, request):
+        """User API GET
+        Description:
+            returns user info
+        """
         user = get_jwt_user(request)
         req_inf = RequestInfo()
         if user is not None:
@@ -65,6 +69,16 @@ class UserAPI(APIView):
     @csrf_exempt
     @validate_jwt
     def post(self, request):
+        """User API POST
+        Args:
+            username: (str)
+            first_name: (str)
+            last_name: (str)
+            email: (str)
+            password: (str)
+        Description:
+            create user view
+        """
         data = request.data
         username = data.get('username')
         first_name = data.get('first_name', None)
@@ -98,6 +112,17 @@ class UserAPI(APIView):
     @csrf_exempt
     @validate_jwt
     def patch(self, request):
+        """User API PATCH
+        Args:
+            username: (str)
+            first_name: (str)
+            last_name: (str)
+            email: (str)
+            password: (str)
+            phone: (str)
+        Description:
+            update user info view
+        """
         user = get_jwt_user(request)
         data = request.data
         req_inf = RequestInfo()
@@ -144,6 +169,10 @@ class UserAPI(APIView):
 class AddresAPIView(APIView):
     @csrf_exempt
     def get(self, request):
+        """Address API GET
+        Description:
+            return all directions associated to user
+        """
         user = get_jwt_user(request)
         req_inf = RequestInfo()
         try:
@@ -168,6 +197,19 @@ class AddresAPIView(APIView):
     @csrf_exempt
     @validate_jwt
     def post(self, request):
+        """Address API GET
+        Args:
+            country: (str)
+            region: (str)
+            town: (str)
+            neighborhood: (str)
+            zip_code: (str)
+            street: (str)
+            street_number: (str)
+            suite_number: (str)
+        Description:
+            create directions
+        """
         user = get_jwt_user(request)
         data = request.data
         req_inf = RequestInfo()
@@ -197,6 +239,20 @@ class AddresAPIView(APIView):
     @csrf_exempt
     @validate_jwt
     def patch(self, request):
+        """Address API PATCH
+        Args:
+            country: (str)
+            region: (str)
+            town: (str)
+            neighborhood: (str)
+            zip_code: (str)
+            street: (str)
+            street_number: (str)
+            suite_number: (str)
+            address_id: (int)
+        Description:
+            update directions
+        """
         user = get_jwt_user(request)
         data = request.data
         req_inf = RequestInfo()
@@ -233,6 +289,12 @@ class AddresAPIView(APIView):
     @csrf_exempt
     @validate_jwt
     def delete(self, request):
+        """Address API PATCH
+        Args:
+            address_id: (int)
+        Description:
+            delete directions
+        """
         user = get_jwt_user(request)
         data = request.data
         req_inf = RequestInfo()
