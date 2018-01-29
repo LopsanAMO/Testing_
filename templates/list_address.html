@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>
+            Direcciones
+        </h1>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 personal-info">
+                {% if user.is_authenticated %}
+                    <table class="table">
+                        <caption>List of address</caption>
+                        <thead>
+                        <tr>
+                          <th scope="col">Pais</th>
+                          <th scope="col">Estado</th>
+                          <th scope="col">Municipio</th>
+                          <th scope="col">Colonia</th>
+                          <th scope="col">Código Postal</th>
+                          <th scope="col">Calle</th>
+                          <th scope="col">Número exterior</th>
+                          <th scope="col">Numero interior</th>
+                          <th scope="col">Editar</th>
+                          <th scope="col">Eliminar</th>
+                          <th scope="col">
+                              <a href="/user/address/new/{{users.id}}">+ Direccion</a>
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for a in addresses %}
+                            <tr>
+                                <td>
+                                    {% if a.country %}
+                                        {{a.country}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if a.region %}
+                                        {{a.region}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if a.town %}
+                                        {{a.town}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if a.neighborhood %}
+                                        {{a.neighborhood}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if a.zip_code %}
+                                        {{a.zip_code}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if a.street %}
+                                        {{a.street}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if a.street_number %}
+                                        {{a.street_number}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if a.suite_number %}
+                                        {{a.suite_number}}
+                                    {% else %}
+                                        Sin elemento
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'users:address_edit' pk=a.id %}">edit</a>
+                                </td>
+                                <td>
+                                    <a href>delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>
+            Usuarios
+        </h1>
+        <hr>
+        <div class="row">
+            <div class="col-md-12 personal-info">
+                {% if user.is_authenticated %}
+                    <table class="table">
+                        <caption>List of users</caption>
+                        <thead>
+                        <tr>
+                          <th scope="col">Username</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Apellido</th>
+                          <th scope="col">Telefono</th>
+                          <th scope="col">Direccion</th>
+                          <th scope="col">Editar</th>
+                          <th scope="col">Eliminar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for u in users %}
+                            <tr>
+                                <td>{{u.user.username}}</td>
+                                <td>
+                                    {% if u.user.first_name %}
+                                        {{u.user.first_name}}
+                                    {% else %}
+                                        Sin nombre
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if u.user.last_name %}
+                                        {{u.user.last_name}}
+                                    {% else %}
+                                        Sin apellido
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if u.phone %}
+                                        {{u.phone}}
+                                    {% else %}
+                                        Sin telefono
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'users:address_list' pk=u.id %}">direcciones</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'users:edit' pk=u.id %}">edit</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'users:delete' pk=u.id %}">delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

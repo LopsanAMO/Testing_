@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>
+            {% block page_title %}
+            {% endblock page_title %}
+        </h1>
+        <hr>
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-3">
+            <div class="text-center">
+              <h2>{{user.user.username}}</h2>
+            </div>
+          </div>
+
+          <!-- edit form column -->
+          <div class="col-md-9 personal-info">
+              {% if messages %}
+                  {% for msg in messages %}
+                      <div class="alert alert-info alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        {{msg}}
+                      </div>
+                  {% endfor %}
+              {% endif %}
+            <h3>
+                {% block name %}
+                {% endblock name %}
+            </h3>
+        <div class="row">
+            <div class="col-md-9 personal-info">
+                <form class="form-horizontal" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <div class="form-group" align="center">
+                      <label class="col-md-3 control-label"></label>
+                      <div class="col-md-8">
+                        <input type="submit" class="btn btn-primary" value="Crear">
+                        <span></span>
+                        <a href="/">Cancel</a>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

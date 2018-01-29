@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" href="/user/new/">+ Usuario</a>
+      </li>
+      <li class="nav-item">
+        {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'users:edit' pk=user.client.id %}">{{user.username}}</a>
+        {% else %}
+            <a class="nav-link" href data-toggle="modal" data-target="#RegistroModal">Registrate</a>
+        {% endif %}
+      </li>
+      <li class="nav-item">
+        {% if user.is_authenticated %}
+            <a href="/logout/" class="nav-link">Salir</a>
+        {% else %}
+            <a class="nav-link" href data-toggle="modal" data-target="#LoginModal">Login</a>
+        {% endif %}
+      </li>
+    </ul>
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-info alert-dismissable">
+              <a class="panel-close close" data-dismiss="alert">×</a>
+              <i class="fa fa-coffee"></i>
+              {{msg}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}
+
+    {% endblock content %}
+
+    <!-- LoginModal -->
+    <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-row">
+                  <form class="form-inline" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="action" value="1">
+                    <div class="form-group mx-sm-3 mb-2">
+                      <label for="staticEmail2" class="sr-only">Email o Username</label>
+                      <input type="text" name="email" class="form-control" id="staticEmail2" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <label for="inputPassword2" class="sr-only">Password</label>
+                      <input type="password" name="password" class="form-control" id="inputPassword2" placeholder="Password">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
+                    </div>
+                  </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <a href="{% url 'social:begin' 'facebook' %}?next=/" class="btn btn-block btn-social btn-fb">
+                  <span class="fa fa-facebook"></span> Inicia con Facebook
+              </a>
+              <a href="{% url 'social:begin' 'google-oauth2' %}?next=/" class="btn btn-block btn-social btn-google">
+                  <span class="fa fa-google"></span> Inicia con Google
+              </a>
+              <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- RegistroModal -->
+    <div class="modal fade" id="RegistroModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-row">
+                  <form class="form-inline" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="action" value="2">
+                      <div class="form-group mx-sm-3 mb-2">
+                        <label for="username" class="sr-only">Nombre de usuario</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="username">
+                      </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <label for="email" class="sr-only">Email</label>
+                      <input type="text" class="form-control" name="email" id="email" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <label for="password" class="sr-only">Password</label>
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                      <label for="password2" class="sr-only">Repetir Password</label>
+                      <input type="password" class="form-control" name="" id="password2" placeholder="Password">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary btn-block">Registrate</button>
+                    </div>
+                  </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <a href="{% url 'social:begin' 'facebook' %}?next=/" class="btn btn-block btn-social btn-fb">
+                  <span class="fa fa-facebook"></span> Registrate con Facebook
+              </a>
+              <a href="{% url 'social:begin' 'google-oauth2' %}?next=/" class="btn btn-block btn-social btn-google">
+                  <span class="fa fa-google"></span> Registrate con Google
+              </a>
+              <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
