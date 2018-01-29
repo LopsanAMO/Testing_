@@ -18,7 +18,7 @@ SECRET_KEY = 't#i$=$=1@!lv&pucz2m-=y-u)wocdr^mflmet*p$-&^kniy)uj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['prueba-compro-pago.herokuapp.com']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
