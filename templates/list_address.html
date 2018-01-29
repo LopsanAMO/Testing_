@@ -90,7 +90,7 @@
                                     <a href="{% url 'users:address_edit' pk=a.id %}">edit</a>
                                 </td>
                                 <td>
-                                    <a href>delete</a>
+                                    <a href="{% url 'users:address_delete' pk=a.id %}">delete</a>
                                 </td>
                             </tr>
                         {% endfor %}

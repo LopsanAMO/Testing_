@@ -243,15 +243,40 @@ def address_new(request, pk=None):
 @login_required
 def address_edit(request, pk=None):
     template_name = 'edit_address.html'
-    try:
-        form = AddressForm(Address.objects.get(id=pk))
-        context = {
-            'form': form
-        }
-        return render(request, template_name, context)
-    except Exception as e:
-        messages.error(request, e.args[0])
-        return HttpResponseRedirect('/')
+    if request.method == 'GET':
+        try:
+            address = Address.objects.get(id=pk)
+            context = {
+                'address': address
+            }
+            return render(request, template_name, context)
+        except Exception as e:
+            messages.error(request, e.args[0])
+            return redirect('/')
+    else:
+        try:
+            address = Address.objects.get(id=pk)
+            if request.POST['region'] is not None:
+                address.region = request.POST.get('region')
+            if request.POST['town'] is not None:
+                address.town = request.POST.get('town')
+            if request.POST['neighborhood'] is not None:
+                address.neighborhood = request.POST.get('neighborhood')
+            if request.POST['zip_code'] is not None:
+                address.zip_code = request.POST.get('zip_code')
+            if request.POST['street'] is not None:
+                address.street = request.POST.get('street')
+            if request.POST['street_number'] is not None:
+                address.street_number = request.POST.get('street_number')
+            if request.POST['suite_number'] is not None:
+                address.suite_number = request.POST.get('suite_number')
+            if request.POST['country'] is not None:
+                address.country = request.POST.get('country')
+            address.save()
+            return redirect('/')
+        except Exception as e:
+            messages.error(request, e.args[0])
+            return HttpResponseRedirect('/')
 
 
 @login_required
@@ -260,7 +285,7 @@ def address_delete(request, pk=None):
     try:
         address = Address.objects.get(id=pk)
         address.delete()
-        return HttpResponseRedirect('.')
+        return redirect('/')
     except Exception as e:
         messages.error(request, e.args[0])
-        return HttpResponseRedirect('.')
+        return redirect('/')

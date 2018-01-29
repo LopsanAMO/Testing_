@@ -7,3 +7,34 @@
 {% block name %}
     Editar Direccion
 {% endblock name %}
+
+{% block form-content %}
+    <p>
+        <label for="id_region">Estado o Region:</label>
+        <input type="text" value="{{address.region}}" name="region" placeholder="Estado" class="form-control" required-field="" maxlength="100" required="" id="id_region">
+    </p>
+    <p>
+        <label for="id_town">Municipio o delegacion:</label>
+        <input type="text" value="{{address.town}}" name="town" placeholder="Delegacion" class="form-control" required-field="" maxlength="100" required="" id="id_town">
+    </p>
+    <p>
+        <label for="id_neighborhood">Colonia:</label>
+        <input type="text" value="{{address.neighborhood}}" name="neighborhood" placeholder="colonia" class="form-control" required-field="" maxlength="100" required="" id="id_neighborhood">
+    </p>
+    <p>
+        <label for="id_zip_code">Código Postal:</label>
+        <input type="text" value="{{address.zip_code}}" name="zip_code" placeholder="Codigo Postal" class="form-control" required-field="" maxlength="6" required="" id="id_zip_code">
+    </p>
+    <p>
+        <label for="id_street">Calle:</label>
+        <input type="text" value="{{address.street}}" name="street" placeholder="Calle" class="form-control" required-field="" maxlength="100" required="" id="id_street">
+    </p>
+    <p>
+        <label for="id_street_number">Número exterior:</label>
+        <input type="text" value="{{address.street_number}}" name="street_number" placeholder="Numero exterior" class="form-control" required-field="" maxlength="10" required="" id="id_street_number">
+    </p>
+    <p>
+        <label for="id_suite_number">Numero interior:</label>
+        <input type="text" value="{{address.suite_number}}" name="suite_number" placeholder="Numero interior" class="form-control" maxlength="100" id="id_suite_number"><input type="hidden" name="country" value="MX" class="form-control" id="id_country">
+    </p>
+{% endblock form-content %}

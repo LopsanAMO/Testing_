@@ -12,38 +12,38 @@ class Address(models.Model):
     )
     region = models.CharField(
         verbose_name='Estado o Region',
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         max_length=100
     )
     town = models.CharField(
         verbose_name='Municipio o delegacion',
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         max_length=100
     )
     neighborhood = models.CharField(
         verbose_name='Colonia',
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         max_length=100,
     )
     zip_code = models.CharField(
         verbose_name='Código Postal',
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         max_length=6
     )
     street = models.CharField(
         verbose_name='Calle',
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         max_length=100
     )
     street_number = models.CharField(
         verbose_name='Número exterior',
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         max_length=10
     )
     suite_number = models.CharField(
